@@ -1,5 +1,6 @@
 name: game_2048
-description: 2048 Game
+description: 2048 Puzzle Game - slide and merge tiles to reach 2048!
+version: 1.0.0+1
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
@@ -8,9 +9,11 @@ dependencies:
   flutter:
     sdk: flutter
   shared_preferences: ^2.2.2
-  audioplayers: ^5.2.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
 
 flutter:
   uses-material-design: true
-  assets:
-    - assets/sounds/
