@@ -125,7 +125,8 @@ class _PrivacyPolicyContent extends StatelessWidget {
           context,
           '11. Contact Us',
           'If you have any questions or concerns about this Privacy Policy, please contact us '
-          'through the app\'s store listing page.',
+          'through the app\'s store listing page. You can also read the latest version of this '
+          'policy online at: https://9228262828.github.io/2048/privacy.html',
         ),
 
         const SizedBox(height: 32),

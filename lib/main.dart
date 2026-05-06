@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'screens/splash_screen.dart';
 import 'screens/privacy_policy_page.dart';
 import 'screens/terms_of_service_page.dart';
 import 'screens/about_page.dart';
@@ -48,8 +49,10 @@ class _MyAppState extends State<MyApp> {
         useMaterial3: true,
       ),
       themeMode: _darkMode ? ThemeMode.dark : ThemeMode.light,
+      initialRoute: '/',
       routes: {
-        '/': (context) => Game2048(onToggleTheme: _toggleTheme, isDark: _darkMode),
+        '/': (context) => const SplashScreen(),
+        '/game': (context) => Game2048(onToggleTheme: _toggleTheme, isDark: _darkMode),
         '/privacy': (context) => const PrivacyPolicyPage(),
         '/terms': (context) => const TermsOfServicePage(),
         '/about': (context) => const AboutPage(),
@@ -263,7 +266,11 @@ class _Game2048State extends State<Game2048> {
         _moves++;
         _addTile();
         _checkGameOver();
-        if (_merges > mergesBefore) {
+        if (_gameOver) {
+          _playSound('gameover.wav');
+        } else if (_won) {
+          _playSound('win.wav');
+        } else if (_merges > mergesBefore) {
           _playSound('merge.wav');
         } else {
           _playSound('move.wav');
