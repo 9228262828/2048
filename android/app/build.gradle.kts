@@ -1,3 +1,13 @@
+import java.util.Properties
+import java.io.FileInputStream
+
+val keyProperties = Properties()
+val keyPropertiesFile = rootProject.file("key.properties")
+
+if (keyPropertiesFile.exists()) {
+    keyProperties.load(FileInputStream(keyPropertiesFile))
+}
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
@@ -6,7 +16,8 @@ plugins {
 }
 
 android {
-    namespace = "com.game2048.puzzle"
+    // namespace must be a valid Java identifier; applicationId is the Play Store ID.
+    namespace = "com.gamming.game2048"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -20,20 +31,27 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.game2048.puzzle"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://flutter.dev/to/review-gradle-config.
+        applicationId = "com.gamming.2048"
         minSdk = 21
         targetSdk = flutter.targetSdkVersion
         versionCode = 1
         versionName = "1.0.0"
     }
 
+    signingConfigs {
+        create("release") {
+            if (keyPropertiesFile.exists()) {
+                keyAlias = keyProperties["keyAlias"] as String
+                keyPassword = keyProperties["keyPassword"] as String
+                storeFile = file(keyProperties["storeFile"] as String)
+                storePassword = keyProperties["storePassword"] as String
+            }
+        }
+    }
+
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.getByName("debug")
+            signingConfig = signingConfigs.getByName("release")
         }
     }
 }
