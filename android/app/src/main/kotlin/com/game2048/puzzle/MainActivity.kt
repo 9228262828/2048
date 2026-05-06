@@ -1,4 +1,4 @@
-package com.gamming.2048
+package com.game2048.puzzle
 
 import io.flutter.embedding.android.FlutterActivity
 
