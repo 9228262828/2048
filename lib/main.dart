@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -118,6 +119,7 @@ class Game2048 extends StatefulWidget {
 
 class _Game2048State extends State<Game2048> {
   final _random = Random();
+  final _audioPlayer = AudioPlayer();
 
   List<List<int>> _board = List.generate(kBoardSize, (_) => List.filled(kBoardSize, 0));
 
@@ -154,6 +156,18 @@ class _Game2048State extends State<Game2048> {
     await prefs.setInt('highScore', _highScore);
     await prefs.setBool('sound', _soundOn);
     await prefs.setInt('gamesPlayed', _gamesPlayed);
+  }
+
+  @override
+  void dispose() {
+    _audioPlayer.dispose();
+    super.dispose();
+  }
+
+  Future<void> _playSound(String fileName) async {
+    if (!_soundOn) return;
+    await _audioPlayer.stop();
+    await _audioPlayer.play(AssetSource('sounds/$fileName'));
   }
 
   // ─── Game control ───
@@ -219,6 +233,7 @@ class _Game2048State extends State<Game2048> {
   void _move(String direction) {
     if (_gameOver) return;
     final before = _copyBoard();
+    final mergesBefore = _merges;
 
     setState(() {
       switch (direction) {
@@ -248,6 +263,11 @@ class _Game2048State extends State<Game2048> {
         _moves++;
         _addTile();
         _checkGameOver();
+        if (_merges > mergesBefore) {
+          _playSound('merge.wav');
+        } else {
+          _playSound('move.wav');
+        }
       }
     });
 
