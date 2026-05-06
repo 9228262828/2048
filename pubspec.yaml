@@ -11,6 +11,38 @@ dependencies:
   shared_preferences: ^2.2.2
   audioplayers: ^5.2.1
 
+dev_dependencies:
+  flutter_launcher_icons: ^0.13.1
+  flutter_native_splash: ^2.3.10
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/icons/appstore.png"
+  adaptive_icon_background: "#EDAA5C"
+  adaptive_icon_foreground: "assets/icons/appstore.png"
+  min_sdk_android: 21
+  web:
+    generate: false
+  windows:
+    generate: false
+  macos:
+    generate: false
+
+flutter_native_splash:
+  color: "#EDAA5C"
+  image: assets/icons/appstore.png
+  color_dark: "#2C1A0E"
+  image_dark: assets/icons/appstore.png
+  android: true
+  ios: true
+  android_12:
+    image: assets/icons/appstore.png
+    icon_background_color: "#EDAA5C"
+    image_dark: assets/icons/appstore.png
+    icon_background_color_dark: "#2C1A0E"
+  fullscreen: false
+
 flutter:
   uses-material-design: true
   assets:
